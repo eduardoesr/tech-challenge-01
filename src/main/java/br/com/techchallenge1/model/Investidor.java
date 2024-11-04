@@ -29,6 +29,14 @@ public class Investidor {
         this.hashMapClasseAtivoInvestidor.put(classeAtivoInvestidor.getClasseAtivo().getNomeClasseAtivo(), classeAtivoInvestidor);
     }
 
+    public void atualizarClasseAtivoInvestidor(String keyClasseAtivo, double percentualAlocacaoMeta) {
+        if(percentualAlocacaoMeta <= 0) {
+            this.hashMapClasseAtivoInvestidor.remove(keyClasseAtivo);
+        } else {
+            this.hashMapClasseAtivoInvestidor.get(keyClasseAtivo).setMetaPercentualAlocacaoClasseAtivo(percentualAlocacaoMeta);
+        }
+    }
+
     public ArrayList<AtivoInvestidor> obterAtivosInvestidor() {
         ArrayList<AtivoInvestidor> listaAtivosInvestidor = new ArrayList<>();
         for (ClasseAtivoInvestidor classeAtivoInvestidor : hashMapClasseAtivoInvestidor.values()) {

@@ -35,4 +35,9 @@ public class ClasseAtivoInvestidor {
     public HashMap<String, CategoriaAtivoInvestidor> getHashMapCategoriaAtivoInvestidor() {
         return hashMapCategoriaAtivoInvestidor;
     }
+
+    public void setMetaPercentualAlocacaoClasseAtivo(double metaPercentualAlocacaoClasseAtivo) {
+        this.metaPercentualAlocacaoClasseAtivo = metaPercentualAlocacaoClasseAtivo;
+    }
+    
 }
