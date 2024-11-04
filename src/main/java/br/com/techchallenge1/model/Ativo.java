@@ -8,23 +8,17 @@ public class Ativo {
     private static AtomicInteger uniqueIdGenerator = new AtomicInteger();
     private int id;
     private String nomeAtivo;
-    private String descricaoAtivo;
-    private String codigoAtivo;
-    private float valorTotalAportes;
-    private ArrayList<AporteAtivoInvestidor> listaAporteAtivo = new ArrayList<>();
-    private LocalDateTime dataDeCadastro;
+    private String sigla;
+    private double indexadoPre;
+    private String indexadoPos;
+    private String codigoB3;
+    private String codigoBolsa;
+    private LocalDateTime dtCadastro;
 
-    public Ativo(String nomeAtivo, String descricaoAtivo, String codigoAtivo) {
+    public Ativo(String nomeAtivo) {
         this.id = uniqueIdGenerator.incrementAndGet();
         this.nomeAtivo = nomeAtivo;
-        this.descricaoAtivo = descricaoAtivo;
-        this.codigoAtivo = codigoAtivo;
     };
-
-    public void adicionarAporteAtivo(AporteAtivoInvestidor aporteAtivo) {
-        this.listaAporteAtivo.add(aporteAtivo);
-        valorTotalAportes += aporteAtivo.obterValorTotalAporte();
-    }
 
     public int getId() {
         return id;
@@ -34,24 +28,32 @@ public class Ativo {
         return nomeAtivo;
     }
 
-    public String getCodigoAtivo() {
-        return codigoAtivo;
+    public String getSigla() {
+        return sigla;
     }
 
-    public String getDescricaoAtivo() {
-        return descricaoAtivo;
+    public LocalDateTime getDtCadastro() {
+        return dtCadastro;
     }
 
-    public float getValorTotalAportes() {
-        return valorTotalAportes;
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
     }
 
-    public ArrayList<AporteAtivoInvestidor> getAporteAtivo() {
-        return listaAporteAtivo;
+    public void setIndexadoPre(double indexadoPre) {
+        this.indexadoPre = indexadoPre;
     }
 
-    public LocalDateTime getDataDeCadastro() {
-        return dataDeCadastro;
+    public void setIndexadoPos(String indexadoPos) {
+        this.indexadoPos = indexadoPos;
+    }
+
+    public void setCodigoB3(String codigoB3) {
+        this.codigoB3 = codigoB3;
+    }
+
+    public void setCodigoBolsa(String codigoBolsa) {
+        this.codigoBolsa = codigoBolsa;
     }
     
 }

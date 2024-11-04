@@ -9,7 +9,7 @@ public class CategoriaAtivoInvestidor {
     private int id;
     private String nomeCategoriaAtivoInvestidor;
     private String descricaoCategoriaAtivoInvestidor;
-    private HashMap<String, Ativo> hashMapAtivos = new HashMap<>();
+    private HashMap<String, AtivoInvestidor> hashMapAtivos = new HashMap<>();
     private LocalDateTime dataDeCadastro;
 
     public CategoriaAtivoInvestidor(String nomeCategoriaAtivoInvestidor, String descricaoCategoriaAtivoInvestidor) {
@@ -19,8 +19,8 @@ public class CategoriaAtivoInvestidor {
         this.dataDeCadastro = LocalDateTime.now();
     };
 
-    public void adicionarAtivo(Ativo ativo) {
-        this.hashMapAtivos.put(ativo.getNomeAtivo(), ativo);
+    public void adicionarAtivo(AtivoInvestidor ativo) {
+        this.hashMapAtivos.put(ativo.getAtivo().getNomeAtivo(), ativo);
     }
 
     public int getId() {
@@ -35,7 +35,7 @@ public class CategoriaAtivoInvestidor {
         return descricaoCategoriaAtivoInvestidor;
     }
 
-    public HashMap<String, Ativo> getHashMapAtivos() {
+    public HashMap<String, AtivoInvestidor> getHashMapAtivos() {
         return hashMapAtivos;
     }
 
