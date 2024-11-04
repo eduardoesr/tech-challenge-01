@@ -6,11 +6,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ClasseAtivoInvestidor {
     private static AtomicInteger uniqueIdGenerator = new AtomicInteger();
     private int id;
-    private float metaPercentualAlocacaoClasseAtivo;
+    private double metaPercentualAlocacaoClasseAtivo;
     private ClasseAtivo classeAtivo;
     private HashMap<String, CategoriaAtivoInvestidor> hashMapCategoriaAtivoInvestidor = new HashMap<>();
 
-    public ClasseAtivoInvestidor(float metaPercentualAlocacaoClasseAtivo, ClasseAtivo classeAtivo) {
+    public ClasseAtivoInvestidor(double metaPercentualAlocacaoClasseAtivo, ClasseAtivo classeAtivo) {
         this.id = uniqueIdGenerator.incrementAndGet();
         this.metaPercentualAlocacaoClasseAtivo = metaPercentualAlocacaoClasseAtivo;
         this.classeAtivo = classeAtivo;
@@ -24,7 +24,7 @@ public class ClasseAtivoInvestidor {
         return id;
     }
 
-    public float getMetaPercentualAlocacaoClasseAtivo() {
+    public double getMetaPercentualAlocacaoClasseAtivo() {
         return metaPercentualAlocacaoClasseAtivo;
     }
 
