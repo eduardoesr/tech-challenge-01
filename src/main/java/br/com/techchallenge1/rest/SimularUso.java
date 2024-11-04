@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import src.main.java.br.com.techchallenge1.model.AporteAtivo;
 import src.main.java.br.com.techchallenge1.model.Ativo;
-import src.main.java.br.com.techchallenge1.model.CategoriaAtivo;
+import src.main.java.br.com.techchallenge1.model.CategoriaAtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.ClasseAtivo;
 import src.main.java.br.com.techchallenge1.model.ClasseAtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.Investidor;
@@ -19,6 +19,11 @@ public class SimularUso {
         // Cadastrar usuário
         Investidor investidor = new Investidor("Nome Teste", "email@teste.com.br", "teste", "senha");
 
+
+
+
+        // Contexto 1
+
         // Usuário: Classe Ativo -> Seleciona classe e define meta
         ClasseAtivo classeAtivoCripto = HashMapClasseAtivo.get("Criptoativos");
         float metaDeAlocacaoCripto = 10;
@@ -32,21 +37,21 @@ public class SimularUso {
         investidor.adicionarClasseAtivoInvestidor(classeAtivoInvestidorRendaFixa);
 
         // Usuário: Categoria Ativo -> Criar categoria de ativo
-        CategoriaAtivo categoriaAtivoA = new CategoriaAtivo("Moedas seguras", "Moedas já estabelecidas e com bom histórico");
-        CategoriaAtivo categoriaAtivoB = new CategoriaAtivo("NFT alto risco", "Projetos novos NFT");
-        CategoriaAtivo categoriaAtivoC = new CategoriaAtivo("Tesouro Direto", "Renda fixa seguro");
+        CategoriaAtivoInvestidor categoriaAtivoA = new CategoriaAtivoInvestidor("Moedas seguras", "Moedas já estabelecidas e com bom histórico");
+        CategoriaAtivoInvestidor categoriaAtivoB = new CategoriaAtivoInvestidor("NFT alto risco", "Projetos novos NFT");
+        CategoriaAtivoInvestidor categoriaAtivoC = new CategoriaAtivoInvestidor("Tesouro Direto", "Renda fixa seguro");
 
         // Usuário: Definir classe de ativo da categoria -> MUDANÇA: Classe está da categoria em vez dos ativos
-        classeAtivoInvestidorCripto.adicionarCategoriaAtivo(categoriaAtivoA);
-        classeAtivoInvestidorCripto.adicionarCategoriaAtivo(categoriaAtivoB);
-        classeAtivoInvestidorRendaFixa.adicionarCategoriaAtivo(categoriaAtivoC);
+        classeAtivoInvestidorCripto.adicionarCategoriaAtivoInvestidor(categoriaAtivoA);
+        classeAtivoInvestidorCripto.adicionarCategoriaAtivoInvestidor(categoriaAtivoB);
+        classeAtivoInvestidorRendaFixa.adicionarCategoriaAtivoInvestidor(categoriaAtivoC);
 
         // Usuário: Ativo -> Preencher ativos -> MUDANÇA: Primeiro preencheu classe da categoria, depois os ativos
         // DÚVIDA: Ativo precisa ser pré definido no sistema? O cliente só seleciona? Porque o sistema precisa de alguma forma ver o valor do ativo.
-        Ativo bitcoin = new Ativo("Bitcoin", "Bitcoin");
-        Ativo ethereum = new Ativo("Ethereum", "Ethereum");
-        Ativo nft = new Ativo("CapivaraDeChapeu", "NFTs capivaraDeChapeu");
-        Ativo selic = new Ativo("Selic", "Tesouro Selic");
+        Ativo bitcoin = new Ativo("Bitcoin", "Bitcoin", "BTC");
+        Ativo ethereum = new Ativo("Ethereum", "Ethereum", "ETH");
+        Ativo nft = new Ativo("CapivaraDeChapeu", "NFTs capivaraDeChapeu", "CDC");
+        Ativo selic = new Ativo("Selic", "Tesouro Selic", "POSFIXADO");
 
         // Usuário: Preencher quantidades de posse dos ativos
         AporteAtivo aporteBitcoin = new AporteAtivo(0.5); 
@@ -66,6 +71,18 @@ public class SimularUso {
         categoriaAtivoB.adicionarAtivo(nft);
         categoriaAtivoC.adicionarAtivo(selic);
 
+
+
+        // Contexto 2
+
+
+
+
+        // Sistema: Buscar ativos do investidor
+        HashMap<String, ClasseAtivoInvestidor> ativosInvestidor = investidor.getHashMapClasseAtivoInvestidor();
+
+
+
         // System.out.println(investidor.getHashMapClasseAtivoInvestidor().get("Criptoativos").getHashMapCategoriaAtivo().get("Moedas seguras").getHashMapAtivos());
 
     }
@@ -78,7 +95,7 @@ public class SimularUso {
 
         ClasseAtivo ativosRendaFixa = new ClasseAtivo("Renda Fixa", "Investimentos renda fixa", parceiroRendaFixa);
         ClasseAtivo ativosCripto = new ClasseAtivo("Criptoativos", "Investimentos criptoativos", parceiroCripto);
-        ClasseAtivo ativosAcoes = new ClasseAtivo("Ações", "Investimentos Ações", parceiroBolsa);
+        ClasseAtivo ativosAcoes = new ClasseAtivo("B3", "Investimentos Ações", parceiroBolsa);
 
         HashMapClasseAtivo.put(ativosRendaFixa.getNomeClasseAtivo(), ativosRendaFixa);
         HashMapClasseAtivo.put(ativosCripto.getNomeClasseAtivo(), ativosCripto);

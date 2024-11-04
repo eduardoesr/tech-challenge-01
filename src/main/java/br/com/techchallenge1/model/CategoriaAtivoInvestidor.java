@@ -4,18 +4,18 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CategoriaAtivo {
+public class CategoriaAtivoInvestidor {
     private static AtomicInteger uniqueIdGenerator = new AtomicInteger();
     private int id;
-    private String nomeCategoriaAtivo;
-    private String descricaoCategoriaAtivo;
+    private String nomeCategoriaAtivoInvestidor;
+    private String descricaoCategoriaAtivoInvestidor;
     private HashMap<String, Ativo> hashMapAtivos = new HashMap<>();
     private LocalDateTime dataDeCadastro;
 
-    public CategoriaAtivo(String nomeCategoriaAtivo, String descricaoCategoriaAtivo) {
+    public CategoriaAtivoInvestidor(String nomeCategoriaAtivoInvestidor, String descricaoCategoriaAtivoInvestidor) {
         this.id = uniqueIdGenerator.incrementAndGet();
-        this.nomeCategoriaAtivo = nomeCategoriaAtivo;
-        this.descricaoCategoriaAtivo = descricaoCategoriaAtivo;
+        this.nomeCategoriaAtivoInvestidor = nomeCategoriaAtivoInvestidor;
+        this.descricaoCategoriaAtivoInvestidor = descricaoCategoriaAtivoInvestidor;
         this.dataDeCadastro = LocalDateTime.now();
     };
 
@@ -27,12 +27,12 @@ public class CategoriaAtivo {
         return id;
     }
 
-    public String getNomeCategoriaAtivo() {
-        return nomeCategoriaAtivo;
+    public String getNomeCategoriaAtivoInvestidor() {
+        return nomeCategoriaAtivoInvestidor;
     }
 
     public String getDescricaoCategoriaAtivo() {
-        return descricaoCategoriaAtivo;
+        return descricaoCategoriaAtivoInvestidor;
     }
 
     public HashMap<String, Ativo> getHashMapAtivos() {
