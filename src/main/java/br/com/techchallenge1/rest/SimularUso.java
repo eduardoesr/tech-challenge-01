@@ -12,7 +12,8 @@ import src.main.java.br.com.techchallenge1.model.Investidor;
 import src.main.java.br.com.techchallenge1.model.ParceiroExterno;
 
 public class SimularUso {
-    public static HashMap<String, ClasseAtivo> HashMapClasseAtivo = new HashMap<>();
+    public static HashMap<String, ClasseAtivo> hashMapClasseAtivoPorNomeClasse = new HashMap<>(); // Obter classe pelo nome da classe
+    public static HashMap<String, ClasseAtivo> HashMapClasseAtivoPorCodigoAtivo = new HashMap<>(); // Obter classe pelo código do ativo
     
     public static void main(String[] args) {
         configuracoesAdministrador();
@@ -26,9 +27,9 @@ public class SimularUso {
         // Contexto 1
 
         // Usuário: Classe Ativo -> Seleciona classe e define meta
-        ClasseAtivo classeAtivoCripto = HashMapClasseAtivo.get("Criptoativos");
+        ClasseAtivo classeAtivoCripto = hashMapClasseAtivoPorNomeClasse.get("Criptoativos");
         float metaDeAlocacaoCripto = 10;
-        ClasseAtivo classeAtivoRendaFixa = HashMapClasseAtivo.get("Renda Fixa");
+        ClasseAtivo classeAtivoRendaFixa = hashMapClasseAtivoPorNomeClasse.get("Renda Fixa");
         float metaDeAlocacaoRendaFixa = 90;
 
         // Sistema: Classe Ativo -> Vincula classe de ativo e uma meta ao investidor
@@ -98,8 +99,13 @@ public class SimularUso {
         ClasseAtivo ativosCripto = new ClasseAtivo("Criptoativos", "Investimentos criptoativos", parceiroCripto);
         ClasseAtivo ativosAcoes = new ClasseAtivo("B3", "Investimentos Ações", parceiroBolsa);
 
-        HashMapClasseAtivo.put(ativosRendaFixa.getNomeClasseAtivo(), ativosRendaFixa);
-        HashMapClasseAtivo.put(ativosCripto.getNomeClasseAtivo(), ativosCripto);
-        HashMapClasseAtivo.put(ativosAcoes.getNomeClasseAtivo(), ativosAcoes);
+        hashMapClasseAtivoPorNomeClasse.put(ativosRendaFixa.getNomeClasseAtivo(), ativosRendaFixa);
+        hashMapClasseAtivoPorNomeClasse.put(ativosCripto.getNomeClasseAtivo(), ativosCripto);
+        hashMapClasseAtivoPorNomeClasse.put(ativosAcoes.getNomeClasseAtivo(), ativosAcoes);
+
+        // HashMapClasseAtivoPorCodigoAtivo.put("BTC", ativosCripto)
+        // HashMapClasseAtivoPorCodigoAtivo.put("ETH")
+        // HashMapClasseAtivoPorCodigoAtivo.put("CDC")
+        // HashMapClasseAtivoPorCodigoAtivo.put("BTC")
     }
 }
