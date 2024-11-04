@@ -1,8 +1,9 @@
 package src.main.java.br.com.techchallenge1.rest;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
-import src.main.java.br.com.techchallenge1.model.AporteAtivo;
+import src.main.java.br.com.techchallenge1.model.AporteAtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.Ativo;
 import src.main.java.br.com.techchallenge1.model.CategoriaAtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.ClasseAtivo;
@@ -54,10 +55,10 @@ public class SimularUso {
         Ativo selic = new Ativo("Selic", "Tesouro Selic", "POSFIXADO");
 
         // Usuário: Preencher quantidades de posse dos ativos
-        AporteAtivo aporteBitcoin = new AporteAtivo(0.5); 
-        AporteAtivo aporteEthereum = new AporteAtivo(0.2); 
-        AporteAtivo aporteNft = new AporteAtivo(100); 
-        AporteAtivo aporteSelic = new AporteAtivo(1); 
+        AporteAtivoInvestidor aporteBitcoin = new AporteAtivoInvestidor(0.5, 60000, LocalDateTime.now()); 
+        AporteAtivoInvestidor aporteEthereum = new AporteAtivoInvestidor(0.2, 14000, LocalDateTime.now()); 
+        AporteAtivoInvestidor aporteNft = new AporteAtivoInvestidor(100, 500, LocalDateTime.now()); 
+        AporteAtivoInvestidor aporteSelic = new AporteAtivoInvestidor(1, 25000, LocalDateTime.now()); 
 
         // Sistema: Associar aporte aos ativos
         bitcoin.adicionarAporteAtivo(aporteBitcoin);

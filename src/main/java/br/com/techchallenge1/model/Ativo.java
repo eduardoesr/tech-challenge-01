@@ -11,7 +11,7 @@ public class Ativo {
     private String descricaoAtivo;
     private String codigoAtivo;
     private float valorTotalAportes;
-    private ArrayList<AporteAtivo> listaAporteAtivo = new ArrayList<>();
+    private ArrayList<AporteAtivoInvestidor> listaAporteAtivo = new ArrayList<>();
     private LocalDateTime dataDeCadastro;
 
     public Ativo(String nomeAtivo, String descricaoAtivo, String codigoAtivo) {
@@ -21,9 +21,9 @@ public class Ativo {
         this.codigoAtivo = codigoAtivo;
     };
 
-    public void adicionarAporteAtivo(AporteAtivo aporteAtivo) {
+    public void adicionarAporteAtivo(AporteAtivoInvestidor aporteAtivo) {
         this.listaAporteAtivo.add(aporteAtivo);
-        valorTotalAportes += aporteAtivo.getQuantidadeAporte();
+        valorTotalAportes += aporteAtivo.obterValorTotalAporte();
     }
 
     public int getId() {
@@ -34,6 +34,10 @@ public class Ativo {
         return nomeAtivo;
     }
 
+    public String getCodigoAtivo() {
+        return codigoAtivo;
+    }
+
     public String getDescricaoAtivo() {
         return descricaoAtivo;
     }
@@ -42,7 +46,7 @@ public class Ativo {
         return valorTotalAportes;
     }
 
-    public ArrayList<AporteAtivo> getAporteAtivo() {
+    public ArrayList<AporteAtivoInvestidor> getAporteAtivo() {
         return listaAporteAtivo;
     }
 
