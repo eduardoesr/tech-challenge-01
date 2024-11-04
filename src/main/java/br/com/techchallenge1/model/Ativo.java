@@ -1,22 +1,23 @@
 package src.main.java.br.com.techchallenge1.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Ativo {
     private static AtomicInteger uniqueIdGenerator = new AtomicInteger();
     private int id;
     private String nomeAtivo;
-    private String CodigoAtivo;
+    private String codigoAtivo;
     private double indexadoPre;
     private String indexadoPos;
+    private Boolean calcularPorIndicador;
     private LocalDateTime dtCadastro;
 
-    public Ativo(String nomeAtivo, String CodigoAtivo) {
+    public Ativo(String nomeAtivo, String codigoAtivo, Boolean calcularPorIndicador) {
         this.id = uniqueIdGenerator.incrementAndGet();
         this.nomeAtivo = nomeAtivo;
-        this.CodigoAtivo = CodigoAtivo;
+        this.codigoAtivo = codigoAtivo;
+        this.calcularPorIndicador = calcularPorIndicador;
     };
 
     public int getId() {
@@ -28,15 +29,19 @@ public class Ativo {
     }
 
     public String getCodigoAtivo() {
-        return CodigoAtivo;
+        return codigoAtivo;
+    }
+
+    public Boolean getCalcularPorIndicador() {
+        return calcularPorIndicador;
     }
 
     public LocalDateTime getDtCadastro() {
         return dtCadastro;
     }
 
-    public void setCodigoAtivo(String CodigoAtivo) {
-        this.CodigoAtivo = CodigoAtivo;
+    public void setcodigoAtivo(String codigoAtivo) {
+        this.codigoAtivo = codigoAtivo;
     }
 
     public void setIndexadoPre(double indexadoPre) {

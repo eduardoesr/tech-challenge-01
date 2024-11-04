@@ -20,12 +20,25 @@ public class AtivoInvestidor {
     }
 
     public double obterMediaDeAportes() {
+        return obterTotalDeAportes()/listaAportesAtivo.size();
+    }
+
+    public double obterTotalDeAportes() {
         double totalAportes = 0;
         for (AporteAtivoInvestidor aporteAtivoInvestidor : listaAportesAtivo) {
             totalAportes += aporteAtivoInvestidor.obterValorTotalAporte();
         };
-        return totalAportes/listaAportesAtivo.size();
+        return totalAportes;
     }
+
+    public double obterQuantidade() {
+        double quantidade = 0;
+        for (AporteAtivoInvestidor aporteAtivoInvestidor : listaAportesAtivo) {
+            quantidade += aporteAtivoInvestidor.getQuantidadeAtivo();
+        };
+        return quantidade;
+    }
+
 
     public int getId() {
         return this.id;
@@ -35,7 +48,7 @@ public class AtivoInvestidor {
         return this.ativo;
     }
 
-    public ArrayList<AporteAtivoInvestidor> getAporteAtivo() {
+    public ArrayList<AporteAtivoInvestidor> getListaAporteAtivo() {
         return this.listaAportesAtivo;
     }
 }

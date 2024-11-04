@@ -17,10 +17,17 @@ public class ParceiroExterno {
         this.urlRequisicao = urlRequisicao;
     };
 
-    public double obterCotacao(String codigoAtivo) {
-        return 10;
+    // Simula retorno API parceiro
+    public double obterCotacao(AtivoInvestidor ativoInvestidor) {
+        if (ativoInvestidor.getAtivo().getCalcularPorIndicador()) {
+            double valorAtual = ativoInvestidor.obterTotalDeAportes()*(1 + 0.07+Math.random()/100);
+            return Math.round(valorAtual * 100.0)/100.0;
+        } else {
+            double variacao = 1 + Math.random()/10;
+            double valorAtual = hashMapAtivosValor.get(ativoInvestidor.getAtivo().getCodigoAtivo())*variacao;
+            return Math.round(valorAtual * 100.0)/100.0;
+        }
     };
-
 
     public void adicionarAtivo(String codigoAtivo, Double valorAtivo) {
         this.hashMapAtivosValor.put(codigoAtivo, valorAtivo);

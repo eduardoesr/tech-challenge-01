@@ -52,25 +52,25 @@ public class SimularUso {
         categoriaAtivoA.adicionarAtivo(
             new AtivoInvestidor(
                 HashMapAtivoPorCodigoAtivo.get("BTC"),
-                new AporteAtivoInvestidor(0.5, 200000, LocalDateTime.now())
+                new AporteAtivoInvestidor(0.5, 200000, LocalDateTime.now().minusMonths(1))
             )
         );
         categoriaAtivoB.adicionarAtivo(
             new AtivoInvestidor(
                 HashMapAtivoPorCodigoAtivo.get("ETH"),
-                new AporteAtivoInvestidor(0.2, 14000, LocalDateTime.now())
+                new AporteAtivoInvestidor(0.2, 14000, LocalDateTime.now().minusMonths(1))
             )
         );
         categoriaAtivoC.adicionarAtivo(
             new AtivoInvestidor(
                 HashMapAtivoPorCodigoAtivo.get("CDC"),
-                new AporteAtivoInvestidor(1, 500, LocalDateTime.now())
+                new AporteAtivoInvestidor(1, 500, LocalDateTime.now().minusMonths(1))
             )
         );
         categoriaAtivoD.adicionarAtivo(
             new AtivoInvestidor(
                 HashMapAtivoPorCodigoAtivo.get("BRSTNCLF1RL5"),
-                new AporteAtivoInvestidor(1, 15489.85, LocalDateTime.now())
+                new AporteAtivoInvestidor(1, 15489.85, LocalDateTime.now().minusMonths(1))
             )
         );
 
@@ -78,10 +78,13 @@ public class SimularUso {
 
         ArrayList<AtivoInvestidor> listaAtivosInvestidor = investidor.obterAtivosInvestidor();
         for (AtivoInvestidor ativoInvestidor : listaAtivosInvestidor) {
-            double valorMedioAportes = ativoInvestidor.obterMediaDeAportes();
-            double valorAtualAtivo = hashMapClasseAtivoPorCodigoAtivo.get(ativoInvestidor.getAtivo().getCodigoAtivo()).getParceiroExterno().obterCotacao(ativoInvestidor.getAtivo().getCodigoAtivo());
-        };
+            double valorMedioAportes = ativoInvestidor.obterMediaDeAportes()/ativoInvestidor.obterQuantidade();
+            double valorAtualAtivo = hashMapClasseAtivoPorCodigoAtivo.get(ativoInvestidor.getAtivo().getCodigoAtivo()).getParceiroExterno().obterCotacao(ativoInvestidor);
 
+            System.out.println(ativoInvestidor.getAtivo().getNomeAtivo());
+            System.out.println("Valor medio " + valorMedioAportes);
+            System.out.println("Valor atual " + valorAtualAtivo);
+        };
     }
                     
     // Configurações iniciais pré definidas do sistema. O investidor não participa desse processo. 
@@ -89,6 +92,11 @@ public class SimularUso {
         ParceiroExterno parceiroRendaFixa = new ParceiroExterno("Parceiro Renda Fixa", "url1");
         ParceiroExterno parceiroCripto = new ParceiroExterno("Parceiro Cripto", "url2");
         ParceiroExterno parceiroBolsa = new ParceiroExterno("Parceiro Bolsa", "url3");
+
+        parceiroCripto.adicionarAtivo("BTC", 200000.00);
+        parceiroCripto.adicionarAtivo("ETH", 14000.00);
+        parceiroCripto.adicionarAtivo("CDC", 500.00);
+        parceiroRendaFixa.adicionarAtivo("BRSTNCLF1RL5", 15489.85);
 
         ClasseAtivo ativosRendaFixa = new ClasseAtivo("Renda Fixa", "Investimentos renda fixa", parceiroRendaFixa);
         ClasseAtivo ativosCripto = new ClasseAtivo("Criptoativos", "Investimentos criptoativos", parceiroCripto);
@@ -105,10 +113,10 @@ public class SimularUso {
 
         // Usuário: Ativo -> Preencher ativos -> MUDANÇA: Primeiro preencheu classe da categoria, depois os ativos
         // DÚVIDA: Ativo precisa ser pré definido no sistema? O cliente só seleciona? Porque o sistema precisa de alguma forma ver o valor do ativo.
-        Ativo bitcoinAtivo = new Ativo("Bitcoin", "BTC");
-        Ativo ethereumAtivo = new Ativo("Ethereum",  "ETH");
-        Ativo nftAtivo = new Ativo("CapivaraDeChapeu", "CDC");
-        Ativo selicAtivo = new Ativo("Tesouro Selic 2027",  "BRSTNCLF1RL5");
+        Ativo bitcoinAtivo = new Ativo("Bitcoin", "BTC", false);
+        Ativo ethereumAtivo = new Ativo("Ethereum",  "ETH", false);
+        Ativo nftAtivo = new Ativo("CapivaraDeChapeu", "CDC", false);
+        Ativo selicAtivo = new Ativo("Tesouro Selic 2027",  "BRSTNCLF1RL5", true);
 
         HashMapAtivoPorCodigoAtivo.put("BTC", bitcoinAtivo);
         HashMapAtivoPorCodigoAtivo.put("ETH", ethereumAtivo);
