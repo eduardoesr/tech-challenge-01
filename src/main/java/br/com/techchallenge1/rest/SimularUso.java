@@ -12,6 +12,7 @@ import src.main.java.br.com.techchallenge1.model.ClasseAtivo;
 import src.main.java.br.com.techchallenge1.model.ClasseAtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.Investidor;
 import src.main.java.br.com.techchallenge1.model.ParceiroExterno;
+import src.main.java.br.com.techchallenge1.utils.MotorCalculo;
 
 public class SimularUso {
     public static HashMap<String, ClasseAtivo> hashMapClasseAtivoPorNomeClasse = new HashMap<>(); // Obter classe pelo nome da classe
@@ -24,7 +25,7 @@ public class SimularUso {
         // Cadastrar usuário
         Investidor investidor = new Investidor("Nome Teste", "email@teste.com.br", "teste", "senha");
 
-        // Contexto 1
+        // Contexto 1 - Configuração de ativos
 
         // Usuário: Classe Ativo -> Seleciona classe e define meta
         // Sistema: Classe Ativo -> Vincula classe de ativo e uma meta ao investidor
@@ -74,17 +75,48 @@ public class SimularUso {
             )
         );
 
-        // Contexto 2
+        // Contexto 2 - Relatórios
 
+        // Buscar ativo em posse
         ArrayList<AtivoInvestidor> listaAtivosInvestidor = investidor.obterAtivosInvestidor();
+        // Dados gerar relatório
+        double valorTotalCarteira = 0;
+        ArrayList<String> listaNomeAtivo = new ArrayList<>();
+        ArrayList<Double> listaValorTotalAtivo = new ArrayList<>();
+        ArrayList<Double> listaValorização = new ArrayList<>();
+        
         for (AtivoInvestidor ativoInvestidor : listaAtivosInvestidor) {
             double valorMedioAportes = ativoInvestidor.obterMediaDeAportes()/ativoInvestidor.obterQuantidade();
+            // Buscar cotações 
             double valorAtualAtivo = hashMapClasseAtivoPorCodigoAtivo.get(ativoInvestidor.getAtivo().getCodigoAtivo()).getParceiroExterno().obterCotacao(ativoInvestidor);
-
-            System.out.println(ativoInvestidor.getAtivo().getNomeAtivo());
-            System.out.println("Valor medio " + valorMedioAportes);
-            System.out.println("Valor atual " + valorAtualAtivo);
+            // Calcular rentabilidade
+            double rentabilidade = MotorCalculo.calculaRentabilidadeAtivo(valorMedioAportes, valorAtualAtivo);
+            // Dados relatório
+            listaNomeAtivo.add(ativoInvestidor.getAtivo().getNomeAtivo());
+            listaValorTotalAtivo.add(ativoInvestidor.obterTotalDeAportes());
+            listaValorização.add(rentabilidade);
+            valorTotalCarteira += ativoInvestidor.obterTotalDeAportes();
         };
+
+        // Dados relatório
+        for (int i = 0; i < listaNomeAtivo.size(); i++) {
+            double percentualCarteira = listaValorTotalAtivo.get(i)*100/valorTotalCarteira;
+            percentualCarteira = Math.round(percentualCarteira * 100.0)/100.0;
+            double valorAtual = listaValorTotalAtivo.get(i)*(1 + listaValorização.get(i)/100);
+            valorAtual = Math.round(valorAtual * 100.0)/100.0;
+            System.out.println("Nome " + listaNomeAtivo.get(i) + " | Valor total R$ " + valorAtual + " | Rentabilidade " + listaValorização.get(i) + "% | Percentual Carteira: " + percentualCarteira + "%");
+        }
+
+
+
+        // Contexto 3 - Recomendação de aportes
+
+
+        // Usuário preenche valor de aporte periódico
+        investidor.setAportePeriodico(2000.00);
+
+
+
     }
                     
     // Configurações iniciais pré definidas do sistema. O investidor não participa desse processo. 
