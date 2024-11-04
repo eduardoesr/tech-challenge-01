@@ -9,14 +9,16 @@ public class Ativo {
     private int id;
     private String nomeAtivo;
     private String descricaoAtivo;
+    private String codigoAtivo;
     private float valorTotalAportes;
     private ArrayList<AporteAtivo> listaAporteAtivo = new ArrayList<>();
     private LocalDateTime dataDeCadastro;
 
-    public Ativo(String nomeAtivo, String descricaoAtivo) {
+    public Ativo(String nomeAtivo, String descricaoAtivo, String codigoAtivo) {
         this.id = uniqueIdGenerator.incrementAndGet();
         this.nomeAtivo = nomeAtivo;
         this.descricaoAtivo = descricaoAtivo;
+        this.codigoAtivo = codigoAtivo;
     };
 
     public void adicionarAporteAtivo(AporteAtivo aporteAtivo) {
