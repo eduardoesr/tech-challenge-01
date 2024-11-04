@@ -13,7 +13,8 @@ public class Investidor {
     private String email;
     private String senha;
     private LocalDateTime dataDeCadastro;
-    private float aportePeriodico;
+    private double aportePeriodico;
+
     private HashMap<String, ClasseAtivoInvestidor> hashMapClasseAtivoInvestidor = new HashMap<>();
 
     public Investidor(String nome, String email, String usuario, String senha) {
@@ -73,12 +74,16 @@ public class Investidor {
         return dataDeCadastro;
     }
 
-    public float getAportePeriodico() {
+    public double getAportePeriodico() {
         return aportePeriodico;
     }
 
     public HashMap<String, ClasseAtivoInvestidor> getHashMapClasseAtivoInvestidor() {
         return hashMapClasseAtivoInvestidor;
+    }
+
+    public void setAportePeriodico(double aportePeriodico) {
+        this.aportePeriodico = aportePeriodico;
     }
 
     // @Override
