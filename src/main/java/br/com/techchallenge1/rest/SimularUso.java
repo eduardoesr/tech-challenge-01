@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import src.main.java.br.com.techchallenge1.model.AporteAtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.Ativo;
+import src.main.java.br.com.techchallenge1.model.AtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.CategoriaAtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.ClasseAtivo;
 import src.main.java.br.com.techchallenge1.model.ClasseAtivoInvestidor;
@@ -29,6 +30,7 @@ public class SimularUso {
         ClasseAtivoInvestidor classeAtivoInvestidorCripto = new ClasseAtivoInvestidor(10, hashMapClasseAtivoPorNomeClasse.get("Criptoativos"));
         ClasseAtivoInvestidor classeAtivoInvestidorRendaFixa = new ClasseAtivoInvestidor(70, hashMapClasseAtivoPorNomeClasse.get("Renda Fixa"));
         ClasseAtivoInvestidor classeAtivoInvestidorBolsa = new ClasseAtivoInvestidor(20, hashMapClasseAtivoPorNomeClasse.get("Ações"));
+        
         investidor.adicionarClasseAtivoInvestidor(classeAtivoInvestidorCripto);
         investidor.adicionarClasseAtivoInvestidor(classeAtivoInvestidorRendaFixa);
         investidor.adicionarClasseAtivoInvestidor(classeAtivoInvestidorBolsa);
@@ -45,43 +47,31 @@ public class SimularUso {
         classeAtivoInvestidorRendaFixa.adicionarCategoriaAtivoInvestidor(categoriaAtivoC);
         classeAtivoInvestidorBolsa.adicionarCategoriaAtivoInvestidor(categoriaAtivoD);
 
-        // AporteAtivoInvestidor aporteAtivoInvestidorBitcoin = new AporteAtivoInvestidor();
-        // AtivoInvestidor bitcoinAtivoInvestidor = new AtivoInvestidor();
-
-        // Sistema
-
-        // Usuário: Preencher quantidades de posse dos ativos
-        AporteAtivoInvestidor aporteBitcoin = new AporteAtivoInvestidor(0.5, 60000, LocalDateTime.now()); 
-        AporteAtivoInvestidor aporteEthereum = new AporteAtivoInvestidor(0.2, 14000, LocalDateTime.now()); 
-        AporteAtivoInvestidor aporteNft = new AporteAtivoInvestidor(100, 500, LocalDateTime.now()); 
-        AporteAtivoInvestidor aporteSelic = new AporteAtivoInvestidor(1, 25000, LocalDateTime.now()); 
-
-        // Sistema: Associar aporte aos ativos
-        bitcoin.adicionarAporteAtivo(aporteBitcoin);
-        ethereum.adicionarAporteAtivo(aporteEthereum);
-        nft.adicionarAporteAtivo(aporteNft);
-        selic.adicionarAporteAtivo(aporteSelic);
-
         // Usuário: Preencher categoria dos ativos
-        categoriaAtivoA.adicionarAtivo(bitcoin);
-        categoriaAtivoA.adicionarAtivo(ethereum);
-        categoriaAtivoB.adicionarAtivo(nft);
-        categoriaAtivoC.adicionarAtivo(selic);
-
-
-
-        // Contexto 2
-
-
-
-
-        // Sistema: Buscar ativos do investidor
-        HashMap<String, ClasseAtivoInvestidor> ativosInvestidor = investidor.getHashMapClasseAtivoInvestidor();
-
-
-
-        // System.out.println(investidor.getHashMapClasseAtivoInvestidor().get("Criptoativos").getHashMapCategoriaAtivo().get("Moedas seguras").getHashMapAtivos());
-
+        categoriaAtivoA.adicionarAtivo(
+            new AtivoInvestidor(
+                HashMapAtivoPorCodigoAtivo.get("BTC"),
+                new AporteAtivoInvestidor(0.5, 200000, LocalDateTime.now())
+            )
+        );
+        categoriaAtivoB.adicionarAtivo(
+            new AtivoInvestidor(
+                HashMapAtivoPorCodigoAtivo.get("ETH"),
+                new AporteAtivoInvestidor(0.2, 14000, LocalDateTime.now())
+            )
+        );
+        categoriaAtivoC.adicionarAtivo(
+            new AtivoInvestidor(
+                HashMapAtivoPorCodigoAtivo.get("CDC"),
+                new AporteAtivoInvestidor(1, 500, LocalDateTime.now())
+            )
+        );
+        categoriaAtivoD.adicionarAtivo(
+            new AtivoInvestidor(
+                HashMapAtivoPorCodigoAtivo.get("BRSTNCLF1RL5"),
+                new AporteAtivoInvestidor(1, 15489.85, LocalDateTime.now())
+            )
+        );
     }
                     
     // Configurações iniciais pré definidas do sistema. O investidor não participa desse processo. 
