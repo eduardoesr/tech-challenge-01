@@ -8,7 +8,7 @@ public class ClasseAtivoInvestidor {
     private int id;
     private float metaPercentualAlocacaoClasseAtivo;
     private ClasseAtivo classeAtivo;
-    private HashMap<String, CategoriaAtivo> hashMapCategoriaAtivo = new HashMap<>();
+    private HashMap<String, CategoriaAtivoInvestidor> hashMapCategoriaAtivoInvestidor = new HashMap<>();
 
     public ClasseAtivoInvestidor(float metaPercentualAlocacaoClasseAtivo, ClasseAtivo classeAtivo) {
         this.id = uniqueIdGenerator.incrementAndGet();
@@ -16,8 +16,8 @@ public class ClasseAtivoInvestidor {
         this.classeAtivo = classeAtivo;
     }
 
-    public void adicionarCategoriaAtivo(CategoriaAtivo categoriaAtivo) {
-        this.hashMapCategoriaAtivo.put(categoriaAtivo.getNomeCategoriaAtivo(), categoriaAtivo);
+    public void adicionarCategoriaAtivoInvestidor(CategoriaAtivoInvestidor categoriaAtivoInvestidor) {
+        this.hashMapCategoriaAtivoInvestidor.put(categoriaAtivoInvestidor.getNomeCategoriaAtivoInvestidor(), categoriaAtivoInvestidor);
     }
 
     public int getId() {
@@ -32,7 +32,7 @@ public class ClasseAtivoInvestidor {
         return classeAtivo;
     }
 
-    public HashMap<String, CategoriaAtivo> getHashMapCategoriaAtivo() {
-        return hashMapCategoriaAtivo;
+    public HashMap<String, CategoriaAtivoInvestidor> getHashMapCategoriaAtivoInvestidor() {
+        return hashMapCategoriaAtivoInvestidor;
     }
 }
