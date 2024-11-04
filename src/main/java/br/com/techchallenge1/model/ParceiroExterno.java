@@ -8,6 +8,7 @@ public class ParceiroExterno {
     private int id;
     private String nomeParceiroExterno;
     private String urlRequisicao;
+    private String tipoAtivo; // Cotação e indexadores
     private HashMap<String, Double> hashMapAtivosValor = new HashMap<>();
 
     public ParceiroExterno(String nomeParceiroExterno, String urlRequisicao) {
@@ -16,8 +17,8 @@ public class ParceiroExterno {
         this.urlRequisicao = urlRequisicao;
     };
 
-    public void adicionarAtivo(Ativo ativo, Double valorAtivo) {
-        this.hashMapAtivosValor.put(ativo.getNomeAtivo(), valorAtivo);
+    public void adicionarAtivo(String codigoAtivo, Double valorAtivo) {
+        this.hashMapAtivosValor.put(codigoAtivo, valorAtivo);
     };
 
     public double obterValorAtivo(String nomeAtivo) {

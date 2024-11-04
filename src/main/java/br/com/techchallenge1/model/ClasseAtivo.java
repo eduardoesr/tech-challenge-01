@@ -18,7 +18,7 @@ public class ClasseAtivo {
 
     public Integer getId() {
         return id;
-    }
+    };
 
     public String getNomeClasseAtivo() {
         return nomeClasseAtivo;
