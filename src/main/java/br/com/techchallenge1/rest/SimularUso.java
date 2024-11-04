@@ -21,39 +21,40 @@ public class SimularUso {
         // Cadastrar usuário
         Investidor investidor = new Investidor("Nome Teste", "email@teste.com.br", "teste", "senha");
 
-
-
-
         // Contexto 1
 
         // Usuário: Classe Ativo -> Seleciona classe e define meta
-        ClasseAtivo classeAtivoCripto = hashMapClasseAtivoPorNomeClasse.get("Criptoativos");
-        float metaDeAlocacaoCripto = 10;
-        ClasseAtivo classeAtivoRendaFixa = hashMapClasseAtivoPorNomeClasse.get("Renda Fixa");
-        float metaDeAlocacaoRendaFixa = 90;
-
         // Sistema: Classe Ativo -> Vincula classe de ativo e uma meta ao investidor
-        ClasseAtivoInvestidor classeAtivoInvestidorCripto = new ClasseAtivoInvestidor(metaDeAlocacaoCripto, classeAtivoCripto);
-        ClasseAtivoInvestidor classeAtivoInvestidorRendaFixa = new ClasseAtivoInvestidor(metaDeAlocacaoRendaFixa, classeAtivoRendaFixa);
+        ClasseAtivoInvestidor classeAtivoInvestidorCripto = new ClasseAtivoInvestidor(10, hashMapClasseAtivoPorNomeClasse.get("Criptoativos"));
+        ClasseAtivoInvestidor classeAtivoInvestidorRendaFixa = new ClasseAtivoInvestidor(70, hashMapClasseAtivoPorNomeClasse.get("Renda Fixa"));
+        ClasseAtivoInvestidor classeAtivoInvestidorBolsa = new ClasseAtivoInvestidor(20, hashMapClasseAtivoPorNomeClasse.get("Ações"));
         investidor.adicionarClasseAtivoInvestidor(classeAtivoInvestidorCripto);
         investidor.adicionarClasseAtivoInvestidor(classeAtivoInvestidorRendaFixa);
+        investidor.adicionarClasseAtivoInvestidor(classeAtivoInvestidorBolsa);
 
         // Usuário: Categoria Ativo -> Criar categoria de ativo
         CategoriaAtivoInvestidor categoriaAtivoA = new CategoriaAtivoInvestidor("Moedas seguras", "Moedas já estabelecidas e com bom histórico");
         CategoriaAtivoInvestidor categoriaAtivoB = new CategoriaAtivoInvestidor("NFT alto risco", "Projetos novos NFT");
         CategoriaAtivoInvestidor categoriaAtivoC = new CategoriaAtivoInvestidor("Tesouro Direto", "Renda fixa seguro");
+        CategoriaAtivoInvestidor categoriaAtivoD = new CategoriaAtivoInvestidor("Acoes Pagam Dividendos", "Renda fixa seguro");
 
         // Usuário: Definir classe de ativo da categoria -> MUDANÇA: Classe está da categoria em vez dos ativos
         classeAtivoInvestidorCripto.adicionarCategoriaAtivoInvestidor(categoriaAtivoA);
         classeAtivoInvestidorCripto.adicionarCategoriaAtivoInvestidor(categoriaAtivoB);
         classeAtivoInvestidorRendaFixa.adicionarCategoriaAtivoInvestidor(categoriaAtivoC);
+        classeAtivoInvestidorBolsa.adicionarCategoriaAtivoInvestidor(categoriaAtivoD);
 
         // Usuário: Ativo -> Preencher ativos -> MUDANÇA: Primeiro preencheu classe da categoria, depois os ativos
         // DÚVIDA: Ativo precisa ser pré definido no sistema? O cliente só seleciona? Porque o sistema precisa de alguma forma ver o valor do ativo.
-        Ativo bitcoin = new Ativo("Bitcoin", "Bitcoin", "BTC");
-        Ativo ethereum = new Ativo("Ethereum", "Ethereum", "ETH");
-        Ativo nft = new Ativo("CapivaraDeChapeu", "NFTs capivaraDeChapeu", "CDC");
-        Ativo selic = new Ativo("Selic", "Tesouro Selic", "POSFIXADO");
+        Ativo bitcoinAtivo = new Ativo("Bitcoin", "BTC");
+        Ativo ethereumAtivo = new Ativo("Ethereum",  "ETH");
+        Ativo nftAtivo = new Ativo("CapivaraDeChapeu", "CDC");
+        Ativo selicAtivo = new Ativo("Tesouro Selic 2027",  "BRSTNCLF1RL5");
+
+        // AporteAtivoInvestidor aporteAtivoInvestidorBitcoin = new AporteAtivoInvestidor();
+        // AtivoInvestidor bitcoinAtivoInvestidor = new AtivoInvestidor();
+
+        // Sistema
 
         // Usuário: Preencher quantidades de posse dos ativos
         AporteAtivoInvestidor aporteBitcoin = new AporteAtivoInvestidor(0.5, 60000, LocalDateTime.now()); 
@@ -103,9 +104,9 @@ public class SimularUso {
         hashMapClasseAtivoPorNomeClasse.put(ativosCripto.getNomeClasseAtivo(), ativosCripto);
         hashMapClasseAtivoPorNomeClasse.put(ativosAcoes.getNomeClasseAtivo(), ativosAcoes);
 
-        // HashMapClasseAtivoPorCodigoAtivo.put("BTC", ativosCripto)
-        // HashMapClasseAtivoPorCodigoAtivo.put("ETH")
-        // HashMapClasseAtivoPorCodigoAtivo.put("CDC")
-        // HashMapClasseAtivoPorCodigoAtivo.put("BTC")
+        HashMapClasseAtivoPorCodigoAtivo.put("BTC", ativosCripto);
+        HashMapClasseAtivoPorCodigoAtivo.put("ETH", ativosCripto);
+        HashMapClasseAtivoPorCodigoAtivo.put("CDC", ativosCripto);
+        HashMapClasseAtivoPorCodigoAtivo.put("BRSTNCLF1RL5", ativosRendaFixa);
     }
 }
