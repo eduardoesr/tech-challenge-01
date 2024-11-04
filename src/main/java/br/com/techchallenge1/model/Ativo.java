@@ -8,15 +8,15 @@ public class Ativo {
     private static AtomicInteger uniqueIdGenerator = new AtomicInteger();
     private int id;
     private String nomeAtivo;
-    private String coditoAtivo;
+    private String CodigoAtivo;
     private double indexadoPre;
     private String indexadoPos;
     private LocalDateTime dtCadastro;
 
-    public Ativo(String nomeAtivo, String coditoAtivo) {
+    public Ativo(String nomeAtivo, String CodigoAtivo) {
         this.id = uniqueIdGenerator.incrementAndGet();
         this.nomeAtivo = nomeAtivo;
-        this.coditoAtivo = coditoAtivo;
+        this.CodigoAtivo = CodigoAtivo;
     };
 
     public int getId() {
@@ -27,16 +27,16 @@ public class Ativo {
         return nomeAtivo;
     }
 
-    public String getCoditoAtivo() {
-        return coditoAtivo;
+    public String getCodigoAtivo() {
+        return CodigoAtivo;
     }
 
     public LocalDateTime getDtCadastro() {
         return dtCadastro;
     }
 
-    public void setCoditoAtivo(String coditoAtivo) {
-        this.coditoAtivo = coditoAtivo;
+    public void setCodigoAtivo(String CodigoAtivo) {
+        this.CodigoAtivo = CodigoAtivo;
     }
 
     public void setIndexadoPre(double indexadoPre) {

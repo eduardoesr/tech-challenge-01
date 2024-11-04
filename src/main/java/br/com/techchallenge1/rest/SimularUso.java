@@ -1,6 +1,7 @@
 package src.main.java.br.com.techchallenge1.rest;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import src.main.java.br.com.techchallenge1.model.AporteAtivoInvestidor;
@@ -14,7 +15,7 @@ import src.main.java.br.com.techchallenge1.model.ParceiroExterno;
 
 public class SimularUso {
     public static HashMap<String, ClasseAtivo> hashMapClasseAtivoPorNomeClasse = new HashMap<>(); // Obter classe pelo nome da classe
-    public static HashMap<String, ClasseAtivo> HashMapClasseAtivoPorCodigoAtivo = new HashMap<>(); // Obter classe pelo código do ativo
+    public static HashMap<String, ClasseAtivo> hashMapClasseAtivoPorCodigoAtivo = new HashMap<>(); // Obter classe pelo código do ativo
     public static HashMap<String, Ativo> HashMapAtivoPorCodigoAtivo = new HashMap<>(); // Obter ativo pelo código do ativo
     
     public static void main(String[] args) {
@@ -72,6 +73,15 @@ public class SimularUso {
                 new AporteAtivoInvestidor(1, 15489.85, LocalDateTime.now())
             )
         );
+
+        // Contexto 2
+
+        ArrayList<AtivoInvestidor> listaAtivosInvestidor = investidor.obterAtivosInvestidor();
+        for (AtivoInvestidor ativoInvestidor : listaAtivosInvestidor) {
+            double valorMedioAportes = ativoInvestidor.obterMediaDeAportes();
+            double valorAtualAtivo = hashMapClasseAtivoPorCodigoAtivo.get(ativoInvestidor.getAtivo().getCodigoAtivo()).getParceiroExterno().obterCotacao(ativoInvestidor.getAtivo().getCodigoAtivo());
+        };
+
     }
                     
     // Configurações iniciais pré definidas do sistema. O investidor não participa desse processo. 
@@ -82,16 +92,16 @@ public class SimularUso {
 
         ClasseAtivo ativosRendaFixa = new ClasseAtivo("Renda Fixa", "Investimentos renda fixa", parceiroRendaFixa);
         ClasseAtivo ativosCripto = new ClasseAtivo("Criptoativos", "Investimentos criptoativos", parceiroCripto);
-        ClasseAtivo ativosAcoes = new ClasseAtivo("B3", "Investimentos Ações", parceiroBolsa);
+        ClasseAtivo ativosAcoes = new ClasseAtivo("Ações", "Investimentos Ações", parceiroBolsa);
 
         hashMapClasseAtivoPorNomeClasse.put(ativosRendaFixa.getNomeClasseAtivo(), ativosRendaFixa);
         hashMapClasseAtivoPorNomeClasse.put(ativosCripto.getNomeClasseAtivo(), ativosCripto);
         hashMapClasseAtivoPorNomeClasse.put(ativosAcoes.getNomeClasseAtivo(), ativosAcoes);
 
-        HashMapClasseAtivoPorCodigoAtivo.put("BTC", ativosCripto);
-        HashMapClasseAtivoPorCodigoAtivo.put("ETH", ativosCripto);
-        HashMapClasseAtivoPorCodigoAtivo.put("CDC", ativosCripto);
-        HashMapClasseAtivoPorCodigoAtivo.put("BRSTNCLF1RL5", ativosRendaFixa);
+        hashMapClasseAtivoPorCodigoAtivo.put("BTC", ativosCripto);
+        hashMapClasseAtivoPorCodigoAtivo.put("ETH", ativosCripto);
+        hashMapClasseAtivoPorCodigoAtivo.put("CDC", ativosCripto);
+        hashMapClasseAtivoPorCodigoAtivo.put("BRSTNCLF1RL5", ativosRendaFixa);
 
         // Usuário: Ativo -> Preencher ativos -> MUDANÇA: Primeiro preencheu classe da categoria, depois os ativos
         // DÚVIDA: Ativo precisa ser pré definido no sistema? O cliente só seleciona? Porque o sistema precisa de alguma forma ver o valor do ativo.

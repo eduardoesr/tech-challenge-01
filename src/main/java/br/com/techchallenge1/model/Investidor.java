@@ -1,6 +1,7 @@
 package src.main.java.br.com.techchallenge1.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,8 +18,8 @@ public class Investidor {
 
     public Investidor(String nome, String email, String usuario, String senha) {
         this.id = uniqueIdGenerator.incrementAndGet();
-        this.usuario = nome;
-        this.usuario = email;
+        this.nome = nome;
+        this.email = email;
         this.usuario = usuario;
         this.senha = senha;
         this.dataDeCadastro = LocalDateTime.now();
@@ -26,6 +27,18 @@ public class Investidor {
 
     public void adicionarClasseAtivoInvestidor(ClasseAtivoInvestidor classeAtivoInvestidor) {
         this.hashMapClasseAtivoInvestidor.put(classeAtivoInvestidor.getClasseAtivo().getNomeClasseAtivo(), classeAtivoInvestidor);
+    }
+
+    public ArrayList<AtivoInvestidor> obterAtivosInvestidor() {
+        ArrayList<AtivoInvestidor> listaAtivosInvestidor = new ArrayList<>();
+        for (ClasseAtivoInvestidor classeAtivoInvestidor : hashMapClasseAtivoInvestidor.values()) {
+            for (CategoriaAtivoInvestidor categoriaAtivoInvestidor : classeAtivoInvestidor.getHashMapCategoriaAtivoInvestidor().values()) {
+                for (AtivoInvestidor ativoInvestidor : categoriaAtivoInvestidor.getHashMapAtivos().values()) {
+                    listaAtivosInvestidor.add(ativoInvestidor);
+                };
+            };
+        };
+        return listaAtivosInvestidor;
     }
 
     public int getId() {

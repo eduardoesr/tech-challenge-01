@@ -17,6 +17,11 @@ public class ParceiroExterno {
         this.urlRequisicao = urlRequisicao;
     };
 
+    public double obterCotacao(String codigoAtivo) {
+        return 10;
+    };
+
+
     public void adicionarAtivo(String codigoAtivo, Double valorAtivo) {
         this.hashMapAtivosValor.put(codigoAtivo, valorAtivo);
     };

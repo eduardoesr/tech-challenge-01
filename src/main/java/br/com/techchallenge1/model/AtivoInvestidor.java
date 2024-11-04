@@ -1,6 +1,5 @@
 package src.main.java.br.com.techchallenge1.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,6 +17,14 @@ public class AtivoInvestidor {
 
     public void adicionarAporteAtivo(AporteAtivoInvestidor aporteAtivo) {
         this.listaAportesAtivo.add(aporteAtivo);
+    }
+
+    public double obterMediaDeAportes() {
+        double totalAportes = 0;
+        for (AporteAtivoInvestidor aporteAtivoInvestidor : listaAportesAtivo) {
+            totalAportes += aporteAtivoInvestidor.obterValorTotalAporte();
+        };
+        return totalAportes/listaAportesAtivo.size();
     }
 
     public int getId() {
