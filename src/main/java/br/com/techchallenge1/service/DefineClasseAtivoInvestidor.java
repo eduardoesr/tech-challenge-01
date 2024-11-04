@@ -4,11 +4,11 @@ import src.main.java.br.com.techchallenge1.model.ClasseAtivo;
 import src.main.java.br.com.techchallenge1.model.ClasseAtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.Investidor;
 
-public class DefiniClasseAtivoInvestidor {
+public class DefineClasseAtivoInvestidor {
 
     private Investidor investidor;  
 
-    public DefiniClasseAtivoInvestidor(Investidor investidor) {
+    public DefineClasseAtivoInvestidor(Investidor investidor) {
         this.investidor = investidor;
     }
 
