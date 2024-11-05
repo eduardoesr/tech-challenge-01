@@ -3,6 +3,8 @@ package src.main.java.br.com.techchallenge1.model;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import src.main.java.br.com.techchallenge1.utils.Arredondar;
+
 public class ParceiroExterno {
     private static AtomicInteger uniqueIdGenerator = new AtomicInteger();
     private int id;
@@ -20,12 +22,10 @@ public class ParceiroExterno {
     // Simula retorno API parceiro
     public double obterCotacao(AtivoInvestidor ativoInvestidor) {
         if (ativoInvestidor.getAtivo().getCalcularPorIndicador()) {
-            double valorAtual = ativoInvestidor.obterTotalDeAportes()*(1 + 0.07+Math.random()/100);
-            return Math.round(valorAtual * 100.0)/100.0;
+            return Arredondar.duasCasas(ativoInvestidor.obterTotalDeAportes()*(1 + 0.07+Math.random()/100));
         } else {
             double variacao = 1 + Math.random()/10;
-            double valorAtual = hashMapAtivosValor.get(ativoInvestidor.getAtivo().getCodigoAtivo())*variacao;
-            return Math.round(valorAtual * 100.0)/100.0;
+            return Arredondar.duasCasas(hashMapAtivosValor.get(ativoInvestidor.getAtivo().getCodigoAtivo())*variacao);
         }
     };
 

@@ -14,6 +14,7 @@ import src.main.java.br.com.techchallenge1.model.ClasseAtivo;
 import src.main.java.br.com.techchallenge1.model.ClasseAtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.Investidor;
 import src.main.java.br.com.techchallenge1.model.ParceiroExterno;
+import src.main.java.br.com.techchallenge1.utils.Arredondar;
 import src.main.java.br.com.techchallenge1.utils.MotorCalculo;
 
 public class SimularUso {
@@ -104,15 +105,10 @@ public class SimularUso {
 
         // Dados relatório
         for (int i = 0; i < listaNomeAtivo.size(); i++) {
-            double percentualCarteira = listaValorTotalAtivo.get(i)*100/valorTotalCarteira;
-            percentualCarteira = Math.round(percentualCarteira * 100.0)/100.0;
-            double valorAtual = listaValorTotalAtivo.get(i)*(1 + listaValorização.get(i)/100);
-            valorAtual = Math.round(valorAtual * 100.0)/100.0;
+            double percentualCarteira = Arredondar.duasCasas(listaValorTotalAtivo.get(i)*100/valorTotalCarteira);
+            double valorAtual = Arredondar.duasCasas(listaValorTotalAtivo.get(i)*100/valorTotalCarteira);
             System.out.println("Nome " + listaNomeAtivo.get(i) + " | Valor total R$ " + valorAtual + " | Rentabilidade " + listaValorização.get(i) + "% | Percentual Carteira: " + percentualCarteira + "%");
         }
-
-
-
 
 
 
@@ -139,8 +135,7 @@ public class SimularUso {
 
             Double aportesClasse = aportesPorClasse.get(nomeClasseAtivo);
             aportesClasse += valorTotalAtivo;
-            aportesClasse = Math.round(aportesClasse * 100.0)/100.0;
-            aportesPorClasse.put(nomeClasseAtivo, aportesClasse);
+            aportesPorClasse.put(nomeClasseAtivo, Arredondar.duasCasas(aportesClasse));
         };
 
         Double aporteTotal = 0.00;
@@ -151,8 +146,7 @@ public class SimularUso {
         // System.out.println(metaPorClasse);
         HashMap<String, Double> discrepanciaMetaClasse = new HashMap<>();
         for (Map.Entry<String, Double> entry : aportesPorClasse.entrySet()) {
-            Double alocacaoAtual = entry.getValue()*100/aporteTotal;
-            alocacaoAtual = Math.round(alocacaoAtual * 100.0)/100.0;
+            Double alocacaoAtual = Arredondar.duasCasas(entry.getValue()*100/aporteTotal);
             Double alocacaoMeta = metaPorClasse.get(entry.getKey());
             Double discrepanciaMeta = alocacaoMeta - alocacaoAtual;
             discrepanciaMetaClasse.put(entry.getKey(), discrepanciaMeta);
