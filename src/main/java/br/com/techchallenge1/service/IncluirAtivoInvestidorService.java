@@ -12,13 +12,13 @@ public class IncluirAtivoInvestidorService {
 
     public void incluirAtivoInvestidor(String keyClasseAtivo, String KeyCategoriaAtivo, AtivoInvestidor ativoInvestidor) {
         if(investidor.getHashMapClasseAtivoInvestidor()
-            .get(KeyCategoriaAtivo).getHashMapCategoriaAtivoInvestidor()
+            .get(keyClasseAtivo).getHashMapCategoriaAtivoInvestidor()
             .get(KeyCategoriaAtivo).getHashMapAtivos()
             .get(ativoInvestidor.getAtivo().getNomeAtivo()) != null) {
             return;
         }
         investidor.getHashMapClasseAtivoInvestidor()
-            .get(KeyCategoriaAtivo)
+            .get(keyClasseAtivo)
             .getHashMapCategoriaAtivoInvestidor()
             .get(KeyCategoriaAtivo).adicionarAtivo(ativoInvestidor);
     }

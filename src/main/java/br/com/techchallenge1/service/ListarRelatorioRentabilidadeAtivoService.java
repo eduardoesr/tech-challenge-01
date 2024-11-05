@@ -10,7 +10,7 @@ import src.main.java.br.com.techchallenge1.model.Investidor;
 import src.main.java.br.com.techchallenge1.model.Relatorio;
 import src.main.java.br.com.techchallenge1.model.dto.DadosRelatorioRentabilidadeAtivoDto;
 import src.main.java.br.com.techchallenge1.model.dto.RespostaRelatorioRentabilidadeAtivoDto;
-import src.main.java.br.com.techchallenge1.utils.MotorCalculo;
+import src.main.java.br.com.techchallenge1.utils.Arredondar;
 
 public class ListarRelatorioRentabilidadeAtivoService {
 
@@ -35,13 +35,9 @@ public class ListarRelatorioRentabilidadeAtivoService {
         };
         // Dados relatório
         for (DadosRelatorioRentabilidadeAtivoDto dadosRelatorioRentabilidade : Relatorio.rentabilidadeAtivo(investidor, listCotacaoAtivo)) {
-            Double percentualCarteira = Math.round(
-                    dadosRelatorioRentabilidade.getAtivoInvestidor().obterTotalDeAportes()*100/valorTotalCarteira *
-                    100.0
-                )/100.0;
-            Double valorAtual = dadosRelatorioRentabilidade.getAtivoInvestidor().obterTotalDeAportes() *
-                                (1 + dadosRelatorioRentabilidade.getRentabilidadeAtivo()/100);
-            valorAtual = Math.round(valorAtual * 100.0)/100.0;
+            Double valorAtual = Arredondar.duasCasas(dadosRelatorioRentabilidade.getAtivoInvestidor().obterTotalDeAportes() *
+                                (1 + dadosRelatorioRentabilidade.getRentabilidadeAtivo()/100));
+            Double percentualCarteira = Arredondar.duasCasas(valorAtual*100/valorTotalCarteira);
             ListarRelatorioRentabilidadeAtivo.add(new RespostaRelatorioRentabilidadeAtivoDto(
                 dadosRelatorioRentabilidade.getAtivoInvestidor().getAtivo().getNomeAtivo(),
                 valorAtual.toString(),

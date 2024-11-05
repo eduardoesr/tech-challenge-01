@@ -12,7 +12,7 @@ public class DefineClasseAtivoInvestidorService {
         this.investidor = investidor;
     }
 
-    public void definirClasseAtivo(double percentualAlocacao, ClasseAtivo classeAtivo) {
+    public void definirClasseAtivo(Double percentualAlocacao, ClasseAtivo classeAtivo) {
         if(investidor.getHashMapClasseAtivoInvestidor().get(classeAtivo.getNomeClasseAtivo()) != null) {
             investidor.atualizarClasseAtivoInvestidor(classeAtivo.getNomeClasseAtivo(), percentualAlocacao);
         } else {

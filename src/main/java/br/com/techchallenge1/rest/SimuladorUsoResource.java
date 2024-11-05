@@ -12,18 +12,21 @@ import src.main.java.br.com.techchallenge1.model.CategoriaAtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.ClasseAtivo;
 import src.main.java.br.com.techchallenge1.model.Investidor;
 import src.main.java.br.com.techchallenge1.model.ParceiroExterno;
+import src.main.java.br.com.techchallenge1.model.dto.RespostaRecomendacaoAporteClasseAtivoInvestidorDto;
 import src.main.java.br.com.techchallenge1.model.dto.RespostaRelatorioRentabilidadeAtivoDto;
 import src.main.java.br.com.techchallenge1.service.DefineClasseAtivoInvestidorService;
 import src.main.java.br.com.techchallenge1.service.IncluirAtivoInvestidorService;
 import src.main.java.br.com.techchallenge1.service.IncluirCategoriaAtivoInvestidorService;
 import src.main.java.br.com.techchallenge1.service.IncluirInvestidorService;
+import src.main.java.br.com.techchallenge1.service.ListarRecomendacaoAporteClasseAtivoInvestidorService;
 import src.main.java.br.com.techchallenge1.service.ListarRelatorioRentabilidadeAtivoService;
 
-public class main {
+public class SimuladorUsoResource {
     public static HashMap<String, ClasseAtivo> hashMapClasseAtivoPorNomeClasse = new HashMap<>(); // Obter classe pelo nome da classe
     public static HashMap<String, ClasseAtivo> hashMapClasseAtivoPorCodigoAtivo = new HashMap<>(); // Obter classe pelo código do ativo
     public static HashMap<String, Ativo> HashMapAtivoPorCodigoAtivo = new HashMap<>(); // Obter ativo pelo código do ativo
     public static List<Investidor> investidores = new ArrayList<>();
+    
     public static void main(String[] args) {
         configuracoesAdministrador();
 
@@ -37,9 +40,9 @@ public class main {
         IncluirAtivoInvestidorService incluirAtivoInvestidorService = new IncluirAtivoInvestidorService(investidor);
 
         // Definiu percentual meta de alocação da classe na carteira
-        definirClasseAtivoService.definirClasseAtivo(10, hashMapClasseAtivoPorNomeClasse.get("Criptoativos"));
-        definirClasseAtivoService.definirClasseAtivo(70, hashMapClasseAtivoPorNomeClasse.get("Renda Fixa"));
-        definirClasseAtivoService.definirClasseAtivo(20, hashMapClasseAtivoPorNomeClasse.get("Ações"));
+        definirClasseAtivoService.definirClasseAtivo(10.00, hashMapClasseAtivoPorNomeClasse.get("Criptoativos"));
+        definirClasseAtivoService.definirClasseAtivo(70.00, hashMapClasseAtivoPorNomeClasse.get("Renda Fixa"));
+        definirClasseAtivoService.definirClasseAtivo(20.00, hashMapClasseAtivoPorNomeClasse.get("Ações"));
 
         // Criação de uma categoria de uma classe de ativo
         incluirCategoriaAtivoInvestidorService.incluirCategoriaAtivoInvestidor(
@@ -94,7 +97,7 @@ public class main {
             "Ações dividendos", 
             new AtivoInvestidor(
                 HashMapAtivoPorCodigoAtivo.get("BBAS3"),
-                new AporteAtivoInvestidor(1, 15489.85, LocalDateTime.now().minusMonths(1))
+                new AporteAtivoInvestidor(1, 26.00, LocalDateTime.now().minusMonths(1))
             ));
 
         ListarRelatorioRentabilidadeAtivoService listarRelatorioRentabilidadeAtivoService = new ListarRelatorioRentabilidadeAtivoService(
@@ -110,9 +113,26 @@ public class main {
         }
         // Contexto 3 - Recomendação de aportes
         investidor.setAportePeriodico(2000.00);
-
+        
+        ListarRecomendacaoAporteClasseAtivoInvestidorService listarRecomendacaoAporteClasseAtivoInvestidorService = new ListarRecomendacaoAporteClasseAtivoInvestidorService(
+            investidor, hashMapClasseAtivoPorCodigoAtivo
+            );
+        
+        for(RespostaRecomendacaoAporteClasseAtivoInvestidorDto recomendacaoAporte : 
+            listarRecomendacaoAporteClasseAtivoInvestidorService.listarRecomendacaoAporteClasseAtivoInvestidor()) {
+            String nomeClasseAtivo = recomendacaoAporte.getClasseAtivoInvestidor().getClasseAtivo().getNomeClasseAtivo();
+            Double metaClasseAtivo = recomendacaoAporte.getClasseAtivoInvestidor().getMetaPercentualAlocacaoClasseAtivo();
+            Double percentualAtualClasseAtivo = recomendacaoAporte.getPercentualAtualClasseAtivoInvestidor();
+            if(recomendacaoAporte.getRecomendaAporte()) {
+                System.out.println("Compre mais ativos da classe '" + nomeClasseAtivo +
+                "'. Pois sua meta é " + metaClasseAtivo.toString() + " % é atualmente ela compoem " + percentualAtualClasseAtivo + " %");
+            } else {
+                System.out.println("Evite compra ativo da classe  '" + nomeClasseAtivo +
+                "'. Pois sua meta é " + metaClasseAtivo.toString() + " % é atualmente ela compoem " + percentualAtualClasseAtivo + " %");
+            }
+        }
     }
-                    
+
     // Configurações iniciais pré definidas do sistema. O investidor não participa desse processo. 
     public static void configuracoesAdministrador() {
         ParceiroExterno parceiroRendaFixa = new ParceiroExterno("Parceiro Renda Fixa", "url1");
@@ -123,6 +143,7 @@ public class main {
         parceiroCripto.adicionarAtivo("ETH", 14000.00);
         parceiroCripto.adicionarAtivo("CDC", 500.00);
         parceiroRendaFixa.adicionarAtivo("BRSTNCLF1RL5", 15489.85);
+        parceiroBolsa.adicionarAtivo("BBAS3", 27.85);
 
         ClasseAtivo ativosRendaFixa = new ClasseAtivo("Renda Fixa", "Investimentos renda fixa", parceiroRendaFixa);
         ClasseAtivo ativosCripto = new ClasseAtivo("Criptoativos", "Investimentos criptoativos", parceiroCripto);
@@ -136,6 +157,7 @@ public class main {
         hashMapClasseAtivoPorCodigoAtivo.put("ETH", ativosCripto);
         hashMapClasseAtivoPorCodigoAtivo.put("CDC", ativosCripto);
         hashMapClasseAtivoPorCodigoAtivo.put("BRSTNCLF1RL5", ativosRendaFixa);
+        hashMapClasseAtivoPorCodigoAtivo.put("BBAS3", ativosAcoes);
 
         // Usuário: Ativo -> Preencher ativos -> MUDANÇA: Primeiro preencheu classe da categoria, depois os ativos
         // DÚVIDA: Ativo precisa ser pré definido no sistema? O cliente só seleciona? Porque o sistema precisa de alguma forma ver o valor do ativo.

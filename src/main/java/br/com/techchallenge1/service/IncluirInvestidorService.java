@@ -17,13 +17,18 @@ public class IncluirInvestidorService {
     private Investidor buscarInvestidorPorEmail(String email) {
         Investidor investidor = null;
 
-        investidor = database.stream().filter(invest -> invest.getEmail().equals(email)).collect(Collectors.toList()).get(0);
+        try {
+            investidor = database.stream().filter(invest -> invest.getEmail().equals(email)).collect(Collectors.toList()).get(0);
+        } catch(Exception e) {
+            //
+        }
 
         return investidor;
     }
 
     public Investidor incluirInvestidor(String nome, String email) {
         Investidor investidor = null;
+
         if(buscarInvestidorPorEmail(email) != null) {
             return investidor;
         }

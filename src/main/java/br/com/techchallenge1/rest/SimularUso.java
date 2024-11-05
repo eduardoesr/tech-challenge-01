@@ -32,9 +32,9 @@ public class SimularUso {
 
         // Usuário: Classe Ativo -> Seleciona classe e define meta
         // Sistema: Classe Ativo -> Vincula classe de ativo e uma meta ao investidor
-        ClasseAtivoInvestidor classeAtivoInvestidorCripto = new ClasseAtivoInvestidor(10, hashMapClasseAtivoPorNomeClasse.get("Criptoativos"));
-        ClasseAtivoInvestidor classeAtivoInvestidorRendaFixa = new ClasseAtivoInvestidor(70, hashMapClasseAtivoPorNomeClasse.get("Renda Fixa"));
-        ClasseAtivoInvestidor classeAtivoInvestidorBolsa = new ClasseAtivoInvestidor(20, hashMapClasseAtivoPorNomeClasse.get("Ações"));
+        ClasseAtivoInvestidor classeAtivoInvestidorCripto = new ClasseAtivoInvestidor(10.00, hashMapClasseAtivoPorNomeClasse.get("Criptoativos"));
+        ClasseAtivoInvestidor classeAtivoInvestidorRendaFixa = new ClasseAtivoInvestidor(70.00, hashMapClasseAtivoPorNomeClasse.get("Renda Fixa"));
+        ClasseAtivoInvestidor classeAtivoInvestidorBolsa = new ClasseAtivoInvestidor(20.00, hashMapClasseAtivoPorNomeClasse.get("Ações"));
         
         investidor.adicionarClasseAtivoInvestidor(classeAtivoInvestidorCripto);
         investidor.adicionarClasseAtivoInvestidor(classeAtivoInvestidorRendaFixa);

@@ -12,9 +12,9 @@ public class Relatorio {
         List<DadosRelatorioRentabilidadeAtivoDto> rentabilidadeAtivos = new ArrayList<>();
 
         for (AtivoInvestidor ativoInvestidor : investidor.obterAtivosInvestidor()) {
-            double valorMedioAportes = ativoInvestidor.obterMediaDeAportes()/ativoInvestidor.obterQuantidade();
+            double valorMedioAtivoPorAportes = ativoInvestidor.obterMediaDeAportes()/ativoInvestidor.obterQuantidade();
             double rentabilidade = MotorCalculo.calculaRentabilidadeAtivo(
-                valorMedioAportes,
+                valorMedioAtivoPorAportes,
                 listCotacaoAtivos.get(ativoInvestidor.getAtivo().getCodigoAtivo()).doubleValue()
                 );
             // Dados relatório
