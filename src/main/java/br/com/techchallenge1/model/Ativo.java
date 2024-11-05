@@ -8,8 +8,6 @@ public class Ativo {
     private int id;
     private String nomeAtivo;
     private String codigoAtivo;
-    private double indexadoPre;
-    private String indexadoPos;
     private Boolean calcularPorIndicador;
     private LocalDateTime dtCadastro;
 
@@ -42,13 +40,5 @@ public class Ativo {
 
     public void setcodigoAtivo(String codigoAtivo) {
         this.codigoAtivo = codigoAtivo;
-    }
-
-    public void setIndexadoPre(double indexadoPre) {
-        this.indexadoPre = indexadoPre;
-    }
-
-    public void setIndexadoPos(String indexadoPos) {
-        this.indexadoPos = indexadoPos;
-    }    
+    } 
 }
