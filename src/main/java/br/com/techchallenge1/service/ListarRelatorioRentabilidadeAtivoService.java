@@ -17,7 +17,7 @@ public class ListarRelatorioRentabilidadeAtivoService {
     private Investidor investidor;
     private HashMap<String, ClasseAtivo> hashMapClasseAtivoPorCodigoAtivo;
 
-    public ListarRelatorioRentabilidadeAtivoService(Investidor investidor,HashMap<String, ClasseAtivo> hashMapClasseAtivoPorCodigoAtivo) {
+    public ListarRelatorioRentabilidadeAtivoService(Investidor investidor, HashMap<String, ClasseAtivo> hashMapClasseAtivoPorCodigoAtivo) {
         this.hashMapClasseAtivoPorCodigoAtivo = hashMapClasseAtivoPorCodigoAtivo;
         this.investidor = investidor;
     }
@@ -33,6 +33,7 @@ public class ListarRelatorioRentabilidadeAtivoService {
                 hashMapClasseAtivoPorCodigoAtivo.get(ativoInvestidor.getAtivo().getCodigoAtivo()).getParceiroExterno().obterCotacao(ativoInvestidor));
             valorTotalCarteira += ativoInvestidor.obterTotalDeAportes();
         };
+
         // Dados relatório
         for (DadosRelatorioRentabilidadeAtivoDto dadosRelatorioRentabilidade : Relatorio.rentabilidadeAtivo(investidor, listCotacaoAtivo)) {
             Double valorAtual = Arredondar.duasCasas(dadosRelatorioRentabilidade.getAtivoInvestidor().obterTotalDeAportes() *
@@ -40,6 +41,7 @@ public class ListarRelatorioRentabilidadeAtivoService {
             Double percentualCarteira = Arredondar.duasCasas(valorAtual*100/valorTotalCarteira);
             ListarRelatorioRentabilidadeAtivo.add(new RespostaRelatorioRentabilidadeAtivoDto(
                 dadosRelatorioRentabilidade.getAtivoInvestidor().getAtivo().getNomeAtivo(),
+                dadosRelatorioRentabilidade.getAtivoInvestidor().getAtivo().getCodigoAtivo(),
                 valorAtual.toString(),
                 dadosRelatorioRentabilidade.getRentabilidadeAtivo().toString(),
                 percentualCarteira.toString()
