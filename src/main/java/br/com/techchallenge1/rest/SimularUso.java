@@ -1,8 +1,10 @@
 package src.main.java.br.com.techchallenge1.rest;
 
+import java.nio.channels.Pipe.SourceChannel;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import src.main.java.br.com.techchallenge1.model.AporteAtivoInvestidor;
 import src.main.java.br.com.techchallenge1.model.Ativo;
@@ -75,6 +77,9 @@ public class SimularUso {
             )
         );
 
+
+
+
         // Contexto 2 - Relatórios
 
         // Buscar ativo em posse
@@ -84,7 +89,6 @@ public class SimularUso {
         ArrayList<String> listaNomeAtivo = new ArrayList<>();
         ArrayList<Double> listaValorTotalAtivo = new ArrayList<>();
         ArrayList<Double> listaValorização = new ArrayList<>();
-        
         for (AtivoInvestidor ativoInvestidor : listaAtivosInvestidor) {
             double valorMedioAportes = ativoInvestidor.obterMediaDeAportes()/ativoInvestidor.obterQuantidade();
             // Buscar cotações 
@@ -109,14 +113,62 @@ public class SimularUso {
 
 
 
-        // Contexto 3 - Recomendação de aportes
 
+
+
+        // Contexto 3 - Recomendação de aportes
 
         // Usuário preenche valor de aporte periódico
         investidor.setAportePeriodico(2000.00);
 
+        // Buscar ativo em posse
+        ArrayList<AtivoInvestidor> listaAtivosInvestidorC3 = investidor.obterAtivosInvestidor();
+        HashMap<String, ClasseAtivoInvestidor> classeAtivos = investidor.obterClasseAtivoInvestidorDoAtivo();
+        HashMap<String, Double> metaPorClasse = investidor.obterMetaPorClasse();
+        HashMap<String, Double> aportesPorClasse = investidor.obterAportesPorClasse();
 
+        for (AtivoInvestidor ativoInvestidor : listaAtivosInvestidorC3) {
+            // Calcular rentabilidade
+            double valorMedioAportes = ativoInvestidor.obterMediaDeAportes()/ativoInvestidor.obterQuantidade();
+            double valorAtualAtivo = hashMapClasseAtivoPorCodigoAtivo.get(ativoInvestidor.getAtivo().getCodigoAtivo()).getParceiroExterno().obterCotacao(ativoInvestidor);
+            double rentabilidade = MotorCalculo.calculaRentabilidadeAtivo(valorMedioAportes, valorAtualAtivo);
 
+            double valorTotalAtivo = ativoInvestidor.obterTotalDeAportes()*(1+rentabilidade/100);
+
+            String nomeClasseAtivo = classeAtivos.get(ativoInvestidor.getAtivo().getCodigoAtivo()).getClasseAtivo().getNomeClasseAtivo();
+
+            Double aportesClasse = aportesPorClasse.get(nomeClasseAtivo);
+            aportesClasse += valorTotalAtivo;
+            aportesClasse = Math.round(aportesClasse * 100.0)/100.0;
+            aportesPorClasse.put(nomeClasseAtivo, aportesClasse);
+        };
+
+        Double aporteTotal = 0.00;
+        for (Double aporte : aportesPorClasse.values()) {
+            aporteTotal += aporte;
+        };
+
+        // System.out.println(metaPorClasse);
+        HashMap<String, Double> discrepanciaMetaClasse = new HashMap<>();
+        for (Map.Entry<String, Double> entry : aportesPorClasse.entrySet()) {
+            Double alocacaoAtual = entry.getValue()*100/aporteTotal;
+            alocacaoAtual = Math.round(alocacaoAtual * 100.0)/100.0;
+            Double alocacaoMeta = metaPorClasse.get(entry.getKey());
+            Double discrepanciaMeta = alocacaoMeta - alocacaoAtual;
+            discrepanciaMetaClasse.put(entry.getKey(), discrepanciaMeta);
+        }
+
+        String classeRecomendada = "";
+        Double discrepanciaMeta = 0.00;
+        for (Map.Entry<String, Double> entry : discrepanciaMetaClasse.entrySet()) {
+            if (entry.getValue() < -10.00) {
+                System.out.println("Você possui uma quantidade muito elevada de ativos da classe '" + entry.getKey() + "', evitar aportar nestes ativos.");
+            }
+            if (entry.getValue() > discrepanciaMeta) {
+                classeRecomendada = entry.getKey();
+            }
+        }
+        System.out.println("Compre mais ativos da classe '" + classeRecomendada + "'");
     }
                     
     // Configurações iniciais pré definidas do sistema. O investidor não participa desse processo. 

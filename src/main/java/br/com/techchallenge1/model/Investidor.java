@@ -14,7 +14,6 @@ public class Investidor {
     private String senha;
     private LocalDateTime dataDeCadastro;
     private double aportePeriodico;
-
     private HashMap<String, ClasseAtivoInvestidor> hashMapClasseAtivoInvestidor = new HashMap<>();
 
     public Investidor(String nome, String email, String usuario, String senha) {
@@ -48,6 +47,34 @@ public class Investidor {
             };
         };
         return listaAtivosInvestidor;
+    }
+
+    public HashMap<String, ClasseAtivoInvestidor> obterClasseAtivoInvestidorDoAtivo() {
+        HashMap<String, ClasseAtivoInvestidor> hashMapClasseAtivoInvestidorDoAtivo = new HashMap<>();
+        for (ClasseAtivoInvestidor classeAtivoInvestidor : hashMapClasseAtivoInvestidor.values()) {
+            for (CategoriaAtivoInvestidor categoriaAtivoInvestidor : classeAtivoInvestidor.getHashMapCategoriaAtivoInvestidor().values()) {
+                for (AtivoInvestidor ativoInvestidor : categoriaAtivoInvestidor.getHashMapAtivos().values()) {
+                    hashMapClasseAtivoInvestidorDoAtivo.put(ativoInvestidor.getAtivo().getCodigoAtivo(), classeAtivoInvestidor);
+                };
+            };
+        };
+        return hashMapClasseAtivoInvestidorDoAtivo;
+    }
+
+    public HashMap<String, Double> obterAportesPorClasse() {
+        HashMap<String, Double> aportesPorClasse = new HashMap<>();
+        for (ClasseAtivoInvestidor classeAtivoInvestidor : hashMapClasseAtivoInvestidor.values()) {
+            aportesPorClasse.put(classeAtivoInvestidor.getClasseAtivo().getNomeClasseAtivo(), 0.00);
+        };
+        return aportesPorClasse;
+    }
+
+    public HashMap<String, Double> obterMetaPorClasse() {
+        HashMap<String, Double> metaPorClasse = new HashMap<>();
+        for (ClasseAtivoInvestidor classeAtivoInvestidor : hashMapClasseAtivoInvestidor.values()) {
+            metaPorClasse.put(classeAtivoInvestidor.getClasseAtivo().getNomeClasseAtivo(), classeAtivoInvestidor.getMetaPercentualAlocacaoClasseAtivo());
+        };
+        return metaPorClasse;
     }
 
     public int getId() {
